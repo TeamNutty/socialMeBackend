@@ -3,15 +3,16 @@ const app = express();
 const cors = require('cors');
 const { sequelize } = require('./models');
 require('dotenv').config();
+// import Route ...
+const authRoute = require('./route/authRoute');
+
+//database
 // sequelize.sync();
 
 // read req.body
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-// import Route ...
-const authRoute = require('./route/authRoute');
 
 // Route
 

@@ -22,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      bio: DataTypes.TEXT,
+      birthDate: DataTypes.DATEONLY,
       profilePicture: DataTypes.STRING,
       omiseId: DataTypes.STRING,
     },
