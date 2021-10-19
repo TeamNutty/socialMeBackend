@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const Follower = sequelize.define(
-    'Follwer',
-
+    'Follower',
+    {},
     {
       underscored: true,
     }
@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Follower.associate = models => {
     Follower.belongsTo(models.User, {
+      as: 'user',
       foreignKey: {
         name: 'userId',
         allowNull: false,
@@ -17,9 +18,9 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'RESTRICT',
     });
     Follower.belongsTo(models.User, {
+      as: 'follower',
       foreignKey: {
-        name: 'userId',
-        as: 'FollowerId',
+        name: 'followerId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',

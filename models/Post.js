@@ -3,11 +3,11 @@ module.exports = (sequelize, DataTypes) => {
     'Post',
     {
       message: {
-        type: DataTypes.STRING(2000),
+        type: DataTypes.TEXT,
         allowNull: false,
       },
       picturePost: {
-        type: DataTypes.STRING(2000),
+        type: DataTypes.JSON,
       },
       videoPost: {
         type: DataTypes.STRING,

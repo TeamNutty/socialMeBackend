@@ -1,40 +1,41 @@
 module.exports = (sequelize, DataTypes) => {
-  const Comment = sequelize.define(
-    'Comment',
+  const Chat = sequelize.define(
+    'Chat',
     {
       message: {
         type: DataTypes.STRING(2000),
         allowNull: false,
       },
-      pictureComment: {
-        type: DataTypes.STRING,
+      date: {
+        type: DataTypes.DATE,
+        allowNull: false,
       },
     },
-
     {
       underscored: true,
     }
   );
 
-  Comment.associate = models => {
-    Comment.belongsTo(models.Post, {
+  Chat.associate = models => {
+    Chat.belongsTo(models.User, {
+      as: 'sender',
       foreignKey: {
-        name: 'postId',
+        name: 'senderId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
-    Comment.belongsTo(models.User, {
-      as: 'commentUser',
+
+    Chat.belongsTo(models.User, {
+      as: 'receiver',
       foreignKey: {
-        name: 'commentUserId',
+        name: 'receiverId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
   };
-
-  return Comment;
+  return Chat;
 };

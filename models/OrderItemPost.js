@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const OrderItemPost = sequelize.define(
     'OrderItemPost',
-
+    {},
     {
       underscored: true,
     }

@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       profilePicture: DataTypes.STRING,
+      omiseId: DataTypes.STRING,
     },
     {
       underscored: true,
@@ -56,23 +57,25 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'RESTRICT',
     });
     User.hasMany(models.Notification, {
+      as: 'userNotice',
       foreignKey: {
-        name: 'userId',
+        name: 'userNoticeId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
     User.hasMany(models.Notification, {
+      as: 'interactedUser',
       foreignKey: {
-        name: 'userId',
-        as: 'interactedUserId',
+        name: 'interactedUserId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
     User.hasMany(models.Follower, {
+      as: 'user',
       foreignKey: {
         name: 'userId',
         allowNull: false,
@@ -81,18 +84,36 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'RESTRICT',
     });
     User.hasMany(models.Follower, {
+      as: 'follower',
       foreignKey: {
-        name: 'userId',
-        as: 'FollowerId',
+        name: 'followerId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
     User.hasMany(models.Comment, {
+      as: 'commentUser',
       foreignKey: {
-        name: 'userId',
-        as: 'commentUserId',
+        name: 'commentUserId',
+        allowNull: false,
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
+    User.hasMany(models.Chat, {
+      as: 'sender',
+      foreignKey: {
+        name: 'senderId',
+        allowNull: false,
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
+    User.hasMany(models.Chat, {
+      as: 'receiver',
+      foreignKey: {
+        name: 'receiverId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',

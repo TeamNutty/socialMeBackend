@@ -7,19 +7,20 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       noticeType: {
-        type: DataTypes.ENUM('comment', 'follwer', 'buyPost'),
+        type: DataTypes.ENUM('comment', 'follwer', 'buyPost', 'chat'),
         allowNull: false,
       },
     },
     {
-      underscored: false,
+      underscored: true,
     }
   );
 
   Notification.associate = models => {
     Notification.belongsTo(models.User, {
+      as: 'userNotice',
       foreignKey: {
-        name: 'userId',
+        name: 'userNoticeId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',
@@ -27,9 +28,9 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Notification.belongsTo(models.User, {
+      as: 'interactedUser',
       foreignKey: {
-        name: 'userId',
-        as: 'interactedUserId',
+        name: 'interactedUserId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',
