@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      profilePictureUrl: DataTypes.STRING,
+      profilePicture: DataTypes.STRING,
     },
     {
       underscored: true,
@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
+
     User.hasMany(models.OrderItemPost, {
       foreignKey: {
         name: 'userId',
@@ -62,6 +63,15 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
+    User.hasMany(models.Notification, {
+      foreignKey: {
+        name: 'userId',
+        as: 'interactedUserId',
+        allowNull: false,
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
     User.hasMany(models.Follower, {
       foreignKey: {
         name: 'userId',
@@ -73,7 +83,16 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.Follower, {
       foreignKey: {
         name: 'userId',
-        as: 'Follower',
+        as: 'FollowerId',
+        allowNull: false,
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
+    User.hasMany(models.Comment, {
+      foreignKey: {
+        name: 'userId',
+        as: 'commentUserId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',

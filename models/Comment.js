@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       message: {
         type: DataTypes.STRING(2000),
+        allowNull: false,
       },
       pictureComment: {
         type: DataTypes.STRING,
@@ -24,12 +25,10 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'RESTRICT',
       onUpdate: 'RESTRICT',
     });
-  };
-  Comment.associate = models => {
     Comment.belongsTo(models.User, {
       foreignKey: {
         name: 'userId',
-        as: 'CommentUserId',
+        as: 'commentUserId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',

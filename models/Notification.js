@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(2000),
         allowNull: false,
       },
+      noticeType: {
+        type: DataTypes.ENUM('comment', 'follwer', 'buyPost'),
+        allowNull: false,
+      },
     },
     {
       underscored: false,
@@ -13,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Notification.associate = models => {
-    Notification.belongTo(models.User, {
+    Notification.belongsTo(models.User, {
       foreignKey: {
         name: 'userId',
         allowNull: false,
@@ -22,36 +26,10 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'RESTRICT',
     });
 
-    Notification.belongTo(models.Comment, {
+    Notification.belongsTo(models.User, {
       foreignKey: {
-        name: 'commentId',
-        allowNull: false,
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
-    });
-
-    Notification.belongTo(models.Post, {
-      foreignKey: {
-        name: 'postId',
-        allowNull: false,
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
-    });
-
-    Notification.belongTo(models.Follower, {
-      foreignKey: {
-        name: 'followerId',
-        allowNull: false,
-      },
-      onDelete: 'RESTRICT',
-      onUpdate: 'RESTRICT',
-    });
-
-    Notification.belongTo(models.NoticeType, {
-      foreignKey: {
-        name: 'noticeTypeId',
+        name: 'userId',
+        as: 'interactedUserId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',

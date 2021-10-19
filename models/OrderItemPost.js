@@ -10,7 +10,16 @@ module.exports = (sequelize, DataTypes) => {
   OrderItemPost.associate = models => {
     OrderItemPost.belongsTo(models.Post, {
       foreignKey: {
-        name: 'orderItemPostId',
+        name: 'postId',
+        allowNull: false,
+      },
+      onDelete: 'RESTRICT',
+      onUpdate: 'RESTRICT',
+    });
+
+    OrderItemPost.belongsTo(models.User, {
+      foreignKey: {
+        name: 'userId',
         allowNull: false,
       },
       onDelete: 'RESTRICT',
