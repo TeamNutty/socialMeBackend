@@ -44,7 +44,7 @@ exports.login = async (req, res, next) => {
       return res.status(400).json({ errPassword: 'username or password is invalid' });
     }
 
-    const paylode = {
+    const payload = {
       id: user.id,
       email: user.email,
     };
