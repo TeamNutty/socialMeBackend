@@ -41,7 +41,7 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
-    const { firstName, lastName, email, password, ConfirmPassword } = req.body;
+    const { firstName, lastName, email, password, confirmPassword } = req.body;
 
     const checkEmail = await User.findOne({
       where: {
@@ -52,7 +52,7 @@ exports.register = async (req, res, next) => {
     if (checkEmail) {
       return res.status(400).json({ errEmail: 'email has already exists' });
     }
-    if (password !== ConfirmPassword) {
+    if (password !== confirmPassword) {
       return res.status(400).json({ errPassword: 'password and confirm password did not match' });
     }
     const hasedPassword = await bcrypt.hash(password, 12);
