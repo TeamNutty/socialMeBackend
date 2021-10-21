@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM('comment', 'follwer', 'buyPost', 'chat'),
         allowNull: false,
       },
+      status: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
     },
     {
       underscored: true,

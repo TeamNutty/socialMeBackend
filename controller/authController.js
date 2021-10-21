@@ -1,6 +1,10 @@
 const { User } = require('../models');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const util = require('util');
+const fs = require('fs');
+const cloundinary = require('cloudinary').v2;
+const uploadPromise = util.promisify(cloundinary.uploader.upload);
 
 exports.authenticate = async (req, res, next) => {
   try {
@@ -73,12 +77,16 @@ exports.register = async (req, res, next) => {
       return res.status(400).json({ errPassword: 'password and confirm password did not match' });
     }
     const hasedPassword = await bcrypt.hash(password, 12);
+
+    const result = await uploadPromise(req.file.path, { timeout: 60000000 });
     await User.create({
       firstName,
       lastName,
       email,
       password: hasedPassword,
+      profilePicture: result.secure_url,
     });
+    fs.unlinkSync(req.file.path);
     res.status(200).json({ message: 'you account has been created' });
   } catch (err) {
     next(err);
