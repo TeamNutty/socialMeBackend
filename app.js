@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-const cors = require('cors');
-const { sequelize } = require('./models');
-require('dotenv').config();
+const cors = require("cors");
+const { sequelize } = require("./models");
+require("dotenv").config();
 // import Route ...
-const authRoute = require('./route/authRoute');
+const authRoute = require("./route/authRoute");
 
 //database
 // sequelize.sync();
@@ -16,12 +16,12 @@ app.use(express.json());
 
 // Route
 
-app.use('/', authRoute);
+app.use("/", authRoute);
 
 /// Err
 
 app.use((err, req, res, next) => {
-  res.status(400).json({ message: err });
+    res.status(400).json({ message: err });
 });
 
 // Port
