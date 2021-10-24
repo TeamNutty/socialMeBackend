@@ -32,27 +32,21 @@ exports.getOneUser = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { firstName, lastName, email, birthDate, bio } = req.body;
+    const { firstName, lastName, birthDate, bio } = req.body;
 
-    const checkEmail = await User.findOne({
-      where: {
-        email,
-      },
-    });
+    let result = null;
 
-    if (checkEmail) {
-      return res.status(400).json({ errEmail: 'email has already exists' });
+    if (req.file) {
+      result = await uploadPromise(req.file.path, { timeout: 60000000 });
+      fs.unlinkSync(req.file.path);
     }
-    const result = await uploadPromise(req.file.path, { timeout: 60000000 });
-
     const [rows] = await User.update(
       {
         firstName,
         lastName,
-        email,
-        birthDate,
         bio: bio || null,
-        profilePicture: result.secure_url,
+        profilePicture: result === null ? null : result.secure_url,
+        birthDate: birthDate || null,
       },
       {
         where: {
@@ -61,7 +55,7 @@ exports.updateUser = async (req, res, next) => {
         },
       }
     );
-    fs.unlinkSync(req.file.path);
+
     if (rows === 0) {
       return res.status(400).json({ errUpdateUser: 'update user account fail' });
     }
@@ -102,7 +96,7 @@ exports.updateUserPassword = async (req, res, next) => {
       }
     );
     if (rows === 0) {
-      res.status(400).json({ eerPassword: 'update password fail' });
+      res.status(400).json({ errPassword: 'update password fail' });
     }
     res.status(200).json({ message: 'New password has been changes' });
   } catch (err) {

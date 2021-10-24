@@ -5,7 +5,7 @@ const { upload } = require('../middleware/upload');
 
 router.get('/', authenticate, UserController.getAllUser);
 
-router.get('/:userId', authenticate, UserController.getOneUser);
+router.get('/oneUser', authenticate, UserController.getOneUser);
 
 router.put('/:userId', authenticate, upload.single('picture'), UserController.updateUser);
 router.put('/password/:userId', authenticate, UserController.updateUserPassword);
