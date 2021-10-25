@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM('private', 'public'),
         defaultValue: 'public',
       },
+
+      price: {
+        type: DataTypes.DECIMAL(15, 2),
+        defaultValue: 60,
+      },
     },
     {
       underscored: true,
