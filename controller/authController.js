@@ -64,8 +64,8 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
     try {
-        const { firstName, lastName, email, password, confirmPassword } = req.body;
-
+        const { firstName, lastName, email, password, confirmPassword, googleId, profilePicture } = req.body;
+        console.log(req.body);
         const checkEmail = await User.findOne({
             where: {
                 email,
@@ -79,16 +79,20 @@ exports.register = async (req, res, next) => {
             return res.status(400).json({ errPassword: "password and confirm password did not match" });
         }
         const hasedPassword = await bcrypt.hash(password, 12);
+        let result = null;
 
-        const result = await uploadPromise(req.file.path, { timeout: 60000000 });
+        if (req.file) {
+            result = await uploadPromise(req.file.path, { timeout: 60000000 });
+            fs.unlinkSync(req.file.path);
+        }
         await User.create({
             firstName,
             lastName,
             email,
             password: hasedPassword,
-            profilePicture: result.secure_url,
+            googleId,
+            profilePicture: profilePicture ? profilePicture : result === null ? null : result.secure_url,
         });
-        fs.unlinkSync(req.file.path);
         res.status(200).json({ message: "you account has been created" });
     } catch (err) {
         next(err);

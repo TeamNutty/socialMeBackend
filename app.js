@@ -5,7 +5,8 @@ const { sequelize } = require("./models");
 require("dotenv").config();
 // import Route ...
 const authRoute = require("./route/authRoute");
-
+const UserRoute = require("./route/UserRoute");
+const PostRoute = require("./route/PostRoute");
 //database
 // sequelize.sync();
 
@@ -16,6 +17,8 @@ app.use(express.json());
 
 // Route
 
+app.use("/post", PostRoute);
+app.use("/user", UserRoute);
 app.use("/", authRoute);
 
 /// Err
