@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       birthDate: DataTypes.DATEONLY,
       profilePicture: DataTypes.STRING,
       omiseId: DataTypes.STRING,
+      googleId: DataTypes.STRING,
     },
     {
       underscored: true,
