@@ -40,12 +40,17 @@ exports.updateUser = async (req, res, next) => {
       result = await uploadPromise(req.file.path, { timeout: 60000000 });
       fs.unlinkSync(req.file.path);
     }
+
+    const user = await User.findOne({
+      where: { id: req.user.id },
+    });
+
     const [rows] = await User.update(
       {
         firstName,
         lastName,
-        bio: bio || null,
-        profilePicture: result === null ? null : result.secure_url,
+        bio: bio === null ? '' : bio,
+        profilePicture: result === null ? user.profilePicture : result.secure_url,
         birthDate: birthDate || null,
       },
       {

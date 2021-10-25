@@ -7,7 +7,7 @@ router.get('/', authenticate, UserController.getAllUser);
 
 router.get('/oneUser', authenticate, UserController.getOneUser);
 
-router.put('/:userId', authenticate, upload.single('picture'), UserController.updateUser);
-router.put('/password/:userId', authenticate, UserController.updateUserPassword);
+router.put('/userUpdate/:id', authenticate, upload.single('picture'), UserController.updateUser);
+router.put('/password/:id', authenticate, UserController.updateUserPassword);
 
 module.exports = router;

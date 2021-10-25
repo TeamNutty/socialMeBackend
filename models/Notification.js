@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     'Notification',
     {
       message: {
-        type: DataTypes.STRING(2000),
+        type: DataTypes.STRING(255),
         allowNull: false,
       },
       noticeType: {
