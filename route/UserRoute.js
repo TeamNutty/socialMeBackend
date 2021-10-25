@@ -3,7 +3,7 @@ const { authenticate } = require("../controller/authController");
 const UserController = require("../controller/UserController");
 const { upload } = require("../middleware/upload");
 
-router.get("/", authenticate, UserController.getAllUser);
+router.get("/", UserController.getAllUser);
 
 router.get("/oneUser", authenticate, UserController.getOneUser);
 
