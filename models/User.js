@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             omiseId: DataTypes.STRING,
             googleId: DataTypes.STRING,
         },
+
         {
             underscored: true,
         }
