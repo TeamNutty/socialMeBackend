@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     'OrderItemPost',
     {
       price: DataTypes.DECIMAL(15, 2),
-      defaultValue: 30,
+      defaultValue: 60,
     },
     {
       underscored: true,
