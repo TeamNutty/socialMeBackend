@@ -28,6 +28,20 @@ exports.getOneUser = async (req, res, next) => {
     next(err);
   }
 };
+exports.getOtherUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const getOtherUser = await User.findOne({
+      where: {
+        id,
+      },
+    });
+
+    return res.status(200).json({ getOtherUser });
+  } catch (err) {
+    next(err);
+  }
+};
 
 exports.updateUser = async (req, res, next) => {
   try {
