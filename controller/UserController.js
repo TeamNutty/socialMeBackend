@@ -63,9 +63,9 @@ exports.updateUser = async (req, res, next) => {
       {
         firstName,
         lastName,
-        bio: bio === null ? '' : bio,
+        bio: bio === 'null' ? null : bio,
         profilePicture: result === null ? user.profilePicture : result.secure_url,
-        birthDate: birthDate || null,
+        birthDate: birthDate === 'null' ? undefined : birthDate,
       },
       {
         where: {

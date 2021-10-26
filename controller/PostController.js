@@ -4,6 +4,7 @@ const cloudinary = require("cloudinary").v2;
 const uploadPromise = util.promisify(cloudinary.uploader.upload);
 const fs = require("fs");
 
+// โพสทังหมด
 exports.getAllMyPost = async (req, res, next) => {
   try {
     // const { id } = req.params;
@@ -14,18 +15,19 @@ exports.getAllMyPost = async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ['firstName', 'lastName', 'profilePicture'],
+          attributes: ["firstName", "lastName", "profilePicture"],
           require: true,
         },
       ],
     });
-    // console.log(myPostList);
+    console.log(myPostList);
     return res.status(200).json({ myPostList });
   } catch (err) {
     next(err);
   }
 };
 
+// สร้างโพส
 exports.createPost = async (req, res, next) => {
   try {
     const { userId, message, status } = req.body;
