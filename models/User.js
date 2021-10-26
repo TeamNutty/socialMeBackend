@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
             birthDate: DataTypes.DATEONLY,
             profilePicture: DataTypes.STRING,
             omiseId: DataTypes.STRING,
-            googleId: DataTypes.STRING,
+            isGoogle: DataTypes.BOOLEAN,
         },
 
         {
@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
             onUpdate: "RESTRICT",
         });
         User.hasMany(models.Follower, {
-            as: "follower",
+            as: "followera",
             foreignKey: {
                 name: "followerId",
                 allowNull: false,

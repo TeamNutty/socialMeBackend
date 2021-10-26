@@ -8,6 +8,7 @@ const authRoute = require("./route/authRoute");
 const UserRoute = require("./route/UserRoute");
 const PostRoute = require("./route/PostRoute");
 const OmiseRoute = require("./route/OmiseRoute");
+const FollowRoute = require("./route/FollowRoute");
 //database
 // sequelize.sync();
 // omise
@@ -21,12 +22,14 @@ app.use(express.json());
 app.use("/check-payment", OmiseRoute);
 app.use("/post", PostRoute);
 app.use("/user", UserRoute);
+app.use("/follow", FollowRoute);
 app.use("/", authRoute);
 
 /// Err
 
 app.use((err, req, res, next) => {
-    res.status(400).json({ message: err });
+    console.log(err);
+    res.status(500).json({ message: err });
 });
 
 // Port
