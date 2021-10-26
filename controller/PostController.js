@@ -1,9 +1,9 @@
-const { Post } = require("../models");
-const { User } = require("../models");
+const { User, Post } = require("../models");
 
 // โพสทังหมด
 exports.getAllMyPost = async (req, res, next) => {
     try {
+        // const { id } = req.params;
         const myPostList = await Post.findAll({
             where: {
                 userId: req.user.id,
@@ -16,6 +16,7 @@ exports.getAllMyPost = async (req, res, next) => {
                 },
             ],
         });
+        console.log(myPostList);
         return res.status(200).json({ myPostList });
     } catch (err) {
         next(err);
@@ -37,6 +38,6 @@ exports.createPost = async (req, res, next) => {
         });
         res.status(200).json({ message: "create post success" });
     } catch (error) {
-        next(err);
+        res.json({ message: error });
     }
 };

@@ -28,6 +28,20 @@ exports.getOneUser = async (req, res, next) => {
     next(err);
   }
 };
+exports.getOtherUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const getOtherUser = await User.findOne({
+      where: {
+        id,
+      },
+    });
+
+    return res.status(200).json({ getOtherUser });
+  } catch (err) {
+    next(err);
+  }
+};
 
 exports.updateUser = async (req, res, next) => {
   try {
@@ -49,9 +63,9 @@ exports.updateUser = async (req, res, next) => {
       {
         firstName,
         lastName,
-        bio: bio === null ? '' : bio,
+        bio: bio === 'null' ? null : bio,
         profilePicture: result === null ? user.profilePicture : result.secure_url,
-        birthDate: birthDate || null,
+        birthDate: birthDate === 'null' ? undefined : birthDate,
       },
       {
         where: {

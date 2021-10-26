@@ -14,7 +14,7 @@ exports.authenticate = async (req, res, next) => {
         if (!authorization || !authorization.startsWith("Bearer")) {
             return res.status(401).json({ message: "you are unauthorized" });
         }
-
+        console.log("dddddd");
         const token = authorization.split(" ")[1];
 
         if (!token) {
@@ -90,7 +90,7 @@ exports.register = async (req, res, next) => {
             lastName,
             email,
             password: hasedPassword,
-            googleId,
+            isGoogle,
             profilePicture: profilePicture ? profilePicture : result === null ? null : result.secure_url,
         });
         res.status(200).json({ message: "you account has been created" });
