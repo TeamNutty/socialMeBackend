@@ -3,7 +3,7 @@ const CommentController = require('../controller/CommentController');
 const { authenticate } = require('../controller/authController');
 const { upload } = require('../middleware/upload');
 
-router.get('/:id', authenticate, CommentController.getAllCommentByPost);
+router.get('/', authenticate, CommentController.getAllComment);
 router.post('/create', authenticate, CommentController.createComment);
 router.delete('/delete', authenticate, CommentController.deleteComment);
 

@@ -7,7 +7,7 @@ const fs = require('fs');
 // โพสทังหมด
 exports.getAllMyPost = async (req, res, next) => {
   try {
-    // const { id } = req.params;
+    const { id } = req.params;
     const myPostList = await Post.findAll({
       where: {
         userId: req.user.id,

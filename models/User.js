@@ -26,10 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       birthDate: DataTypes.DATEONLY,
       profilePicture: DataTypes.STRING,
       omiseId: DataTypes.STRING,
-      isGoogle: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
+      googleId: DataTypes.STRING,
     },
 
     {

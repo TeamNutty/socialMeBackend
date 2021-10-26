@@ -4,14 +4,9 @@ const util = require('util');
 const cloundinary = require('cloudinary').v2;
 const uploadPromise = util.promisify(cloundinary.uploader.upload);
 
-exports.getAllCommentByPost = async (req, res, next) => {
-  const { postId } = req.params;
+exports.getAllComment = async (req, res, next) => {
   try {
-    const comment = await Comment.findAll({
-      where: {
-        postId: postId,
-      },
-    });
+    const comment = await Comment.findAll({});
 
     res.status(200).json({ comment });
   } catch (err) {
