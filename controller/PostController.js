@@ -7,10 +7,31 @@ const fs = require('fs');
 // โพสทังหมด
 exports.getAllMyPost = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    // const { id } = req.params;
     const myPostList = await Post.findAll({
       where: {
         userId: req.user.id,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName', 'profilePicture'],
+          require: true,
+        },
+      ],
+    });
+    // console.log(myPostList);
+    return res.status(200).json({ myPostList });
+  } catch (err) {
+    next(err);
+  }
+};
+exports.getAllPostbyid = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const myPostList = await Post.findAll({
+      where: {
+        userId: id,
       },
       include: [
         {

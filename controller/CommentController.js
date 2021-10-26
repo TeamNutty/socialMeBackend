@@ -1,4 +1,4 @@
-const { Comment } = require('../models');
+const { Comment, User } = require('../models');
 const fs = require('fs');
 const util = require('util');
 const cloundinary = require('cloudinary').v2;
@@ -6,7 +6,16 @@ const uploadPromise = util.promisify(cloundinary.uploader.upload);
 
 exports.getAllComment = async (req, res, next) => {
   try {
-    const comment = await Comment.findAll({});
+    const comment = await Comment.findAll({
+      include: [
+        {
+          as: 'commentUser',
+          model: User,
+          attributes: ['firstName', 'lastName', 'profilePicture'],
+          require: true,
+        },
+      ],
+    });
 
     res.status(200).json({ comment });
   } catch (err) {
