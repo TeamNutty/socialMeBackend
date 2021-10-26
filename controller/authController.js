@@ -91,7 +91,7 @@ exports.register = async (req, res, next) => {
       email,
       password: hasedPassword,
       isGoogle,
-      profilePicture: result === null ? null : result.secure_url,
+      profilePicture: profilePicture ? profilePicture : result === null ? null : result.secure_url,
     });
     res.status(200).json({ message: 'you account has been created' });
   } catch (err) {
