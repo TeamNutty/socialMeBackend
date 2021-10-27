@@ -10,7 +10,7 @@ const PostRoute = require("./route/PostRoute");
 const OmiseRoute = require("./route/OmiseRoute");
 const FollowRoute = require("./route/FollowRoute");
 //database
-// sequelize.sync();
+// sequelize.sync({ alter: true });
 // omise
 
 // read req.body

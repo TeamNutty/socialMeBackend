@@ -20,7 +20,7 @@ exports.getAllMyPost = async (req, res, next) => {
         },
       ],
     });
-    console.log(myPostList);
+    // console.log(myPostList);
     return res.status(200).json({ myPostList });
   } catch (err) {
     next(err);
@@ -34,7 +34,7 @@ exports.createPost = async (req, res, next) => {
     const forCreatePost = {
       userId,
       message,
-      status,
+      status
     };
 
     const result = await Promise.all(req.files.map(
@@ -47,7 +47,6 @@ exports.createPost = async (req, res, next) => {
       // res.json({ message: 'have img' });
     }
     // console.log(forCreatePost);
-
     await Post.create(forCreatePost);
     res.status(200).json({ message: 'create post success' });
   } catch (error) {

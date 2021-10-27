@@ -64,7 +64,7 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
     try {
-        const { firstName, lastName, email, password, confirmPassword, googleId, profilePicture } = req.body;
+        const { firstName, lastName, email, password, confirmPassword, isGoogle, profilePicture } = req.body;
         console.log(req.body);
         const checkEmail = await User.findOne({
             where: {
