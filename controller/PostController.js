@@ -1,4 +1,4 @@
-const { User, Post } = require('../models');
+const { User, Post, Like, OrderItemPost } = require('../models');
 const util = require('util');
 const cloudinary = require('cloudinary').v2;
 const uploadPromise = util.promisify(cloudinary.uploader.upload);
@@ -37,6 +37,16 @@ exports.getAllPostbyid = async (req, res, next) => {
         {
           model: User,
           attributes: ['firstName', 'lastName', 'profilePicture'],
+          require: true,
+        },
+        {
+          model: Like,
+          attributes: ['userId', 'postId'],
+          require: true,
+        },
+        {
+          model: OrderItemPost,
+          attributes: ['userId'],
           require: true,
         },
       ],
@@ -89,5 +99,32 @@ exports.delPost = async (req, res, next) => {
     res.status(200).json({ message: 'delete success' });
   } catch (error) {
     res.status(400).json(error.message);
+  }
+};
+
+exports.editMsgPost = async (req, res, next) => {
+  try {
+    const { postId } = req.params;
+    const { message } = req.body;
+    console.log(req.params);
+    console.log(req.body);
+    // let result = null;
+
+    const rows = await Post.update(
+      {
+        message
+      }, {
+      where: {
+        id: postId
+      },
+    }
+    );
+
+    if (rows === 0) {
+      return res.status(400).json({ errUpdateUser: 'update msg post fail' });
+    }
+    return res.status(200).json({ message: 'update msg post success' });
+  } catch (err) {
+    next(err);
   }
 };
