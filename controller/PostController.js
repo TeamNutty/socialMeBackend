@@ -51,11 +51,12 @@ exports.getAllPostbyid = async (req, res, next) => {
 // สร้างโพส
 exports.createPost = async (req, res, next) => {
   try {
-    const { userId, message, status } = req.body;
+    const { userId, message, status, price } = req.body;
     const forCreatePost = {
       userId,
       message,
-      status
+      status,
+      price,
     };
 
     const result = await Promise.all(req.files.map(item => uploadPromise(item.path, { timeout: 2000000 })));
