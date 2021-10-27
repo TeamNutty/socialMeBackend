@@ -31,6 +31,7 @@ exports.getOneUser = async (req, res, next) => {
 exports.getOtherUser = async (req, res, next) => {
   try {
     const { id } = req.params;
+
     const getOtherUser = await User.findOne({
       where: {
         id,

@@ -51,11 +51,12 @@ exports.getAllPostbyid = async (req, res, next) => {
 // สร้างโพส
 exports.createPost = async (req, res, next) => {
   try {
-    const { userId, message, status } = req.body;
+    const { userId, message, status, price } = req.body;
     const forCreatePost = {
       userId,
       message,
-      status
+      status,
+      price,
     };
 
     const result = await Promise.all(req.files.map(item => uploadPromise(item.path, { timeout: 2000000 })));
@@ -88,20 +89,5 @@ exports.delPost = async (req, res, next) => {
     res.status(200).json({ message: 'delete success' });
   } catch (error) {
     res.status(400).json(error.message);
-  }
-};
-
-exports.buyPost = async (req, res, next) => {
-  try {
-    const { userId } = req.body;
-    const forCreateOrderItemsPost = {
-
-    };
-    // console.log(forCreatePost);
-    // await Post.create(forCreateOrderItemsPost);
-
-    res.status(200).json({ message: 'create post success' });
-  } catch (error) {
-    res.json({ message: error });
   }
 };
