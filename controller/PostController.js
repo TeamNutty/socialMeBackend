@@ -90,3 +90,18 @@ exports.delPost = async (req, res, next) => {
     res.status(400).json(error.message);
   }
 };
+
+exports.buyPost = async (req, res, next) => {
+  try {
+    const { userId } = req.body;
+    const forCreateOrderItemsPost = {
+
+    };
+    // console.log(forCreatePost);
+    // await Post.create(forCreateOrderItemsPost);
+
+    res.status(200).json({ message: 'create post success' });
+  } catch (error) {
+    res.json({ message: error });
+  }
+};

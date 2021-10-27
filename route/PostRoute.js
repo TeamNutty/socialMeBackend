@@ -13,4 +13,6 @@ router.get("/:id", authenticate, PostController.getAllPostbyid);
 router.post("/", upload.array("picPostUrl"), authenticate, PostController.createPost);
 router.delete("/:postId", authenticate, PostController.delPost);
 
+// post on orderItemPsost
+router.post("/", authenticate, PostController.buyPost);
 module.exports = router;
