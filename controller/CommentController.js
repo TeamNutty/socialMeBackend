@@ -42,16 +42,41 @@ exports.createComment = async (req, res, next) => {
 
 exports.deleteComment = async (req, res, next) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
 
     const row = await Comment.destroy({
       where: {
         id,
+        commentUserId: req.user.id,
       },
     });
 
     if (!row) return res.status(400).json({ message: 'fail to  delete' });
     res.status(200).json({ message: 'delete success' });
+  } catch (err) {
+    next(err);
+  }
+};
+exports.editComment = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { message } = req.body;
+    const [row] = await Comment.update(
+      {
+        message,
+      },
+      {
+        where: {
+          id,
+          commentUserId: req.user.id,
+        },
+      }
+    );
+
+    if (row === 0) {
+      return res.status(400).json({ message: 'fail to edit comment' });
+    }
+    res.status(200).json({ message: 'edit comment success' });
   } catch (err) {
     next(err);
   }

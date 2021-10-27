@@ -1,4 +1,4 @@
-const { User, Post } = require('../models');
+const { User, Post, Like, OrderItemPost } = require('../models');
 const util = require('util');
 const cloudinary = require('cloudinary').v2;
 const uploadPromise = util.promisify(cloudinary.uploader.upload);
@@ -37,6 +37,16 @@ exports.getAllPostbyid = async (req, res, next) => {
         {
           model: User,
           attributes: ['firstName', 'lastName', 'profilePicture'],
+          require: true,
+        },
+        {
+          model: Like,
+          attributes: ['userId', 'postId'],
+          require: true,
+        },
+        {
+          model: OrderItemPost,
+          attributes: ['userId'],
           require: true,
         },
       ],

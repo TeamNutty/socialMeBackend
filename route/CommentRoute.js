@@ -5,6 +5,7 @@ const { upload } = require('../middleware/upload');
 
 router.get('/', authenticate, CommentController.getAllComment);
 router.post('/create', authenticate, CommentController.createComment);
-router.delete('/delete', authenticate, CommentController.deleteComment);
+router.put('/edit/:id', authenticate, CommentController.editComment);
+router.delete('/delete/:id', authenticate, CommentController.deleteComment);
 
 module.exports = router;
