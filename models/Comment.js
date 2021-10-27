@@ -3,11 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     'Comment',
     {
       message: {
-        type: DataTypes.STRING(2000),
+        type: DataTypes.TEXT,
         allowNull: false,
-      },
-      pictureComment: {
-        type: DataTypes.STRING,
       },
     },
 

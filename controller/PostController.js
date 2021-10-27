@@ -1,8 +1,8 @@
 const { User, Post } = require('../models');
-const util = require("util");
-const cloudinary = require("cloudinary").v2;
+const util = require('util');
+const cloudinary = require('cloudinary').v2;
 const uploadPromise = util.promisify(cloudinary.uploader.upload);
-const fs = require("fs");
+const fs = require('fs');
 
 // โพสทังหมด
 exports.getAllMyPost = async (req, res, next) => {
@@ -15,7 +15,28 @@ exports.getAllMyPost = async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["firstName", "lastName", "profilePicture"],
+          attributes: ['firstName', 'lastName', 'profilePicture'],
+          require: true,
+        },
+      ],
+    });
+    // console.log(myPostList);
+    return res.status(200).json({ myPostList });
+  } catch (err) {
+    next(err);
+  }
+};
+exports.getAllPostbyid = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const myPostList = await Post.findAll({
+      where: {
+        userId: id,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName', 'profilePicture'],
           require: true,
         },
       ],
@@ -37,8 +58,7 @@ exports.createPost = async (req, res, next) => {
       status
     };
 
-    const result = await Promise.all(req.files.map(
-      item => uploadPromise(item.path, { timeout: 2000000 })));
+    const result = await Promise.all(req.files.map(item => uploadPromise(item.path, { timeout: 2000000 })));
     // console.log(result.length);
     if (result.length > 0) {
       const arrPicUrl = result.map(item => item.secure_url);
@@ -61,8 +81,8 @@ exports.delPost = async (req, res, next) => {
     // console.log(postId);
     const rows = await Post.destroy({
       where: {
-        id: postId
-      }
+        id: postId,
+      },
     });
     if (!rows) return res.status(400).json({ message: 'fail to  delete' });
     res.status(200).json({ message: 'delete success' });

@@ -1,10 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   const OrderItemPost = sequelize.define(
     'OrderItemPost',
-    {
-      price: DataTypes.DECIMAL(15, 2),
-      defaultValue: 60,
-    },
+    {},
     {
       underscored: true,
     }

@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "development": {
     "username": "root",
     "password": "Yuri092598833",
@@ -21,3 +22,27 @@
     "dialect": "mysql"
   }
 }
+=======
+    "development": {
+        "username": "root",
+        "password": "TeamNutty18",
+        "database": "database-socialMe",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    },
+    "test": {
+        "username": "root",
+        "password": null,
+        "database": "database_test",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    },
+    "production": {
+        "username": "root",
+        "password": null,
+        "database": "database_production",
+        "host": "127.0.0.1",
+        "dialect": "mysql"
+    }
+}
+>>>>>>> f82250b82e37358b397c14ada7e2bce258a73693

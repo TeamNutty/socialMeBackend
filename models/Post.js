@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       price: {
         type: DataTypes.DECIMAL(15, 2),
-        defaultValue: 60,
+        defaultValue: 0,
       },
     },
     {
