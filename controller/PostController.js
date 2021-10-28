@@ -1,4 +1,4 @@
-const { User, Post, Like, OrderItemPost } = require('../models');
+const { User, Post, Like, OrderItemPost, Follower } = require('../models');
 const util = require('util');
 const cloudinary = require('cloudinary').v2;
 const uploadPromise = util.promisify(cloudinary.uploader.upload);
@@ -112,12 +112,13 @@ exports.editMsgPost = async (req, res, next) => {
 
     const rows = await Post.update(
       {
-        message
-      }, {
-      where: {
-        id: postId
+        message,
       },
-    }
+      {
+        where: {
+          id: postId,
+        },
+      }
     );
 
     if (rows === 0) {
@@ -125,6 +126,63 @@ exports.editMsgPost = async (req, res, next) => {
     }
     return res.status(200).json({ message: 'update msg post success' });
   } catch (err) {
+    next(err);
+  }
+};
+
+exports.getAllPostbyFollwer = async (req, res, next) => {
+  try {
+    console.log(`req.user.id`, req.user.id);
+    const myPost = await Post.findAll({
+      where: { userId: req.user.id },
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName', 'profilePicture'],
+          require: true,
+        },
+        {
+          model: Like,
+          attributes: ['userId', 'postId'],
+          require: true,
+        },
+        {
+          model: OrderItemPost,
+          attributes: ['userId'],
+          require: true,
+        },
+      ],
+    });
+
+    const friend = await Follower.findAll({ where: { userId: req.user.id } });
+    // console.log(`friend`, friend)
+    const friendsId = friend.map(item => item.followerId);
+    console.log(friendsId, 'wwwww');
+    const friendPost = await Post.findAll({
+      where: { userId: friendsId },
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName', 'profilePicture'],
+          require: true,
+        },
+        {
+          model: Like,
+          attributes: ['userId', 'postId'],
+          require: true,
+        },
+        {
+          model: OrderItemPost,
+          attributes: ['userId'],
+          require: true,
+        },
+      ],
+    });
+    console.log(`my`, myPost);
+    const allPost = [...myPost, ...friendPost].sort((a, b) => b.createdAt - a.createdAt);
+    res.send({ allPost });
+  } catch {
+    console.log('errr');
     next(err);
   }
 };

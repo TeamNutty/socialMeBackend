@@ -64,7 +64,7 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
-    const { firstName, lastName, email, password, confirmPassword, isGoogle, profilePicture } = req.body;
+    const { firstName, lastName, email, password, confirmPassword, googleId, profilePicture } = req.body;
     console.log(req.body);
     const checkEmail = await User.findOne({
       where: {
@@ -90,7 +90,7 @@ exports.register = async (req, res, next) => {
       lastName,
       email,
       password: hasedPassword,
-      isGoogle,
+      googleId,
       profilePicture: profilePicture ? profilePicture : result === null ? null : result.secure_url,
     });
     res.status(200).json({ message: 'you account has been created' });

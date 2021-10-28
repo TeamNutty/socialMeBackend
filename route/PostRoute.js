@@ -1,18 +1,20 @@
-const router = require("express").Router();
-const PostController = require("../controller/PostController");
-const { authenticate } = require("../controller/authController");
-const { upload } = require("../middleware/upload");
+const router = require('express').Router();
+const PostController = require('../controller/PostController');
+const { authenticate } = require('../controller/authController');
+const { upload } = require('../middleware/upload');
 
 // test
-router.get("/", authenticate, (req, res) => {
-    res.send("connect");
+router.get('/', authenticate, (req, res) => {
+  res.send('connect');
 });
 
-router.get("/mypost", authenticate, PostController.getAllMyPost);
-router.get("/:id", authenticate, PostController.getAllPostbyid);
-router.post("/", upload.array("picPostUrl"), authenticate, PostController.createPost);
-router.delete("/:postId", authenticate, PostController.delPost);
-router.put("/:postId", authenticate, PostController.editMsgPost);
+router.get('/mypost', authenticate, PostController.getAllMyPost);
+router.get('/all', authenticate, PostController.getAllPostbyFollwer);
+
+router.get('/:id', authenticate, PostController.getAllPostbyid);
+router.post('/', upload.array('picPostUrl'), authenticate, PostController.createPost);
+router.delete('/:postId', authenticate, PostController.delPost);
+router.put('/:postId', authenticate, PostController.editMsgPost);
 
 // post on orderItemPsost
 module.exports = router;
