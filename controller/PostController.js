@@ -40,11 +40,6 @@ exports.getAllPostbyid = async (req, res, next) => {
           require: true,
         },
         {
-          model: Like,
-          attributes: ['userId', 'postId'],
-          require: true,
-        },
-        {
           model: OrderItemPost,
           attributes: ['userId'],
           require: true,
