@@ -20,7 +20,8 @@ exports.unfollow = async (req, res, next) => {
         const { id } = req.params;
         const unfollower = await Follower.destroy({
             where: {
-                id,
+                followerId: id,
+                userId: req.user.id,
             },
         });
         res.status(200).send({ unfollower });
