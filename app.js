@@ -10,8 +10,10 @@ const PostRoute = require("./route/PostRoute");
 const OmiseRoute = require("./route/OmiseRoute");
 const FollowRoute = require("./route/FollowRoute");
 const CommentRoute = require("./route/CommentRoute");
+const likeRoute = require("./route/likeRoute");
 //database
 // sequelize.sync({ force: true });
+// sequelize.sync({ alter: true });
 // sequelize.sync();
 // omise
 
@@ -26,6 +28,7 @@ app.use("/check-payment", OmiseRoute);
 app.use("/post", PostRoute);
 app.use("/user", UserRoute);
 app.use("/follow", FollowRoute);
+app.use("/like", likeRoute);
 app.use("/", authRoute);
 
 /// Err

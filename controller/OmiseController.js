@@ -18,7 +18,7 @@ exports.buyPost = async (req, res, next) => {
     // });
 
     const charge = await omise.charges.create({
-      amount: price,
+      amount: price * 100,
       currency: 'thb',
       //   customer: customer.id,
       card: tokenOmise,

@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     {},
     {
       underscored: true,
+      paranoid: true,
     }
   );
   Like.associate = models => {
