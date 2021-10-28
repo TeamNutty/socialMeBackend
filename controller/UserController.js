@@ -66,7 +66,7 @@ exports.updateUser = async (req, res, next) => {
         lastName,
         bio: bio === 'null' ? null : bio,
         profilePicture: result === null ? user.profilePicture : result.secure_url,
-        birthDate: birthDate === 'null' ? undefined : birthDate,
+        birthDate: birthDate === 'null' ? null : birthDate,
       },
       {
         where: {
@@ -95,7 +95,9 @@ exports.updateUserPassword = async (req, res, next) => {
         id: req.user.id,
       },
     });
-
+    if (user.googleId) {
+      return res.status(400).json({ errCurrentPassword: 'Cannot Change Password' });
+    }
     const checkCurrentPassword = await bcrypt.compare(currentPassword, user.password);
     if (!checkCurrentPassword) {
       return res.status(400).json({ errCurrentPassword: 'Current password is Wrong!!' });
