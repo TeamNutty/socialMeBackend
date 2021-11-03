@@ -106,8 +106,8 @@ exports.editMsgPost = async (req, res, next) => {
   try {
     const { postId } = req.params;
     const { message } = req.body;
-    console.log(req.params);
-    console.log(req.body);
+    // console.log(req.params);
+    // console.log(req.body);
     // let result = null;
 
     const rows = await Post.update(
@@ -132,7 +132,7 @@ exports.editMsgPost = async (req, res, next) => {
 
 exports.getAllPostbyFollwer = async (req, res, next) => {
   try {
-    console.log(`req.user.id`, req.user.id);
+    // console.log(`req.user.id`, req.user.id);
     const myPost = await Post.findAll({
       where: { userId: req.user.id },
       include: [
@@ -157,7 +157,7 @@ exports.getAllPostbyFollwer = async (req, res, next) => {
     const friend = await Follower.findAll({ where: { userId: req.user.id } });
     // console.log(`friend`, friend)
     const friendsId = friend.map(item => item.followerId);
-    console.log(friendsId, 'wwwww');
+    // console.log(friendsId, 'wwwww');
     const friendPost = await Post.findAll({
       where: { userId: friendsId },
       include: [
@@ -178,7 +178,7 @@ exports.getAllPostbyFollwer = async (req, res, next) => {
         },
       ],
     });
-    console.log(`my`, myPost);
+    // console.log(`my`, myPost);
     const allPost = [...myPost, ...friendPost].sort((a, b) => b.createdAt - a.createdAt);
     res.send({ allPost });
   } catch {

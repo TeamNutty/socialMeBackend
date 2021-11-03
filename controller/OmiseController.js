@@ -7,7 +7,7 @@ const omise = require('omise')({
 
 exports.buyPost = async (req, res, next) => {
   const { price, tokenOmise, postId } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   try {
     //   username, amount, token
     // const customer = await omise.customers.create({
